@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "zavod-teplits-ru"
 include(":app")
 include(":data-api")
+include(":data-storage")
