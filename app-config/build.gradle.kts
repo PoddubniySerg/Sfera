@@ -1,24 +1,18 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "ru.zavod.teplits"
+    namespace = "ru.zavod.app_config"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ru.zavod.teplits"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,27 +31,31 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+//    Dependency Injection DI
+    implementation(libs.javax.inject)
+//    Настройка/конфигурация темы
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
+//    ViewModel utilities for Compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation(libs.androidx.ui.text.google.fonts)
-
-    implementation(project(":app-config"))
+    implementation(project(":app-navigation"))
+    api(project(":app-di"))
 }

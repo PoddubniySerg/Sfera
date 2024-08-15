@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottom_menu_chats_header">Чаты</string>
+    <string name="bottom_menu_profile_header">Профиль</string>
+    <string name="bottom_menu_settings_header">Настройки</string>
+</resources>

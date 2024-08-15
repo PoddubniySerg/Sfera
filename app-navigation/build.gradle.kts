@@ -2,11 +2,10 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.googleDevtoolsKsp)
 }
 
 android {
-    namespace = "ru.zavod.app_di"
+    namespace = "ru.zavod.app_navigation"
     compileSdk = 34
 
     defaultConfig {
@@ -42,24 +41,27 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
-
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+//    Dependency Injection DI
+    implementation(libs.javax.inject)
 //    ViewModel utilities for Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-//    Dagger
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-//    Retrofit (api loader) - для получения OkhttpClient в RemoteCoreRepository
-    implementation(libs.retrofit)
+//    Navigation
+    implementation(libs.androidx.navigation.compose)
 
     api(project(":app-core"))
-    implementation(project(":app-navigation"))
-    implementation(project(":data-api"))
-    implementation(project(":data-storage"))
-    implementation(project(":feature-auth"))
 }

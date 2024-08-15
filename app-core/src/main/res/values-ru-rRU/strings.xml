@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_theme_light_title">Светлая</string>
+    <string name="config_theme_dark_title">Темная</string>
+    <string name="config_theme_systemic_title">Системная</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottom_menu_chats_header">Chats</string>
+    <string name="bottom_menu_profile_header">Profile</string>
+    <string name="bottom_menu_settings_header">Settings</string>
+</resources>
