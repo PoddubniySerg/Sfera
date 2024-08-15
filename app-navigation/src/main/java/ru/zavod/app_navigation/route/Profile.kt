@@ -14,6 +14,6 @@ internal fun NavGraphBuilder.profile(
     val profileDestination = resources.getString(R.string.profile_destination)
     composable(route = profileDestination) {
         setCurrentRoute(profileDestination)
-        navigateApi.ToAuth()
+        navigateApi.ToProfile()
     }
 }

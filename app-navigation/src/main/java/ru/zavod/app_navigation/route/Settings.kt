@@ -14,6 +14,6 @@ internal fun NavGraphBuilder.settings(
     val settingsDestination = resources.getString(R.string.settings_destination)
     composable(route = settingsDestination) {
         setCurrentRoute(settingsDestination)
-        navigateApi.ToAuth()
+        navigateApi.ToSettings()
     }
 }

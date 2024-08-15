@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import ru.zavod.app_navigation.di.NavigateApi
 import ru.zavod.app_navigation.di.OnboardingParams
 import ru.zavod.feature_auth.navigation.AuthNavHost
+import ru.zavod.feature_chats.navigation.ChatsNavHost
 import ru.zavod.feature_onboarding.ui.Onboarding
 import javax.inject.Inject
 
@@ -36,6 +37,11 @@ class NavigateApiImpl @Inject constructor() : NavigateApi {
 
     @Composable
     override fun ToChats() {
+        ChatsNavHost()
+    }
+
+    @Composable
+    override fun ToProfile() {
         Onboarding(
             animationId = null,
             content = null,
@@ -44,12 +50,11 @@ class NavigateApiImpl @Inject constructor() : NavigateApi {
     }
 
     @Composable
-    override fun ToProfile() {
-        AuthNavHost()
-    }
-
-    @Composable
     override fun ToSettings() {
-        AuthNavHost()
+        Onboarding(
+            animationId = null,
+            content = null,
+            start = {}
+        )
     }
 }

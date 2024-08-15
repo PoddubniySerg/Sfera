@@ -44,42 +44,22 @@ internal fun RegisterResultDto.toModel(): RegisterResult? {
 }
 
 internal fun GetMeResultDto.toModel(): GetMeResult? {
-    val avatars = GetMeResult.Avatar(
-        avatar = profile.avatars?.avatar,
-        bigAvatar = profile.avatars?.bigAvatar,
-        miniAvatar = profile.avatars?.miniAvatar
-    )
     return GetMeResult(
         id = profile.id ?: return null,
         name = profile.name,
-        username = profile.username,
         birthday = profile.birthday,
         city = profile.city,
-        vk = profile.vk,
-        instagram = profile.instagram,
         status = profile.status,
         avatar = profile.avatar,
-        last = profile.last,
-        online = profile.online,
-        created = profile.created,
-        phone = profile.phone,
-        completedTask = profile.completedTask,
-        avatars = avatars
+        phone = profile.phone
     )
 }
 
 internal fun UpdateMeParams.toDto() = UpdateMeDto(
     name = name,
-    username = username,
     birthday = birthday,
     city = city,
-    vk = vk,
-    instagram = instagram,
-    status = status,
-    avatar = UpdateMeDto.Avatar(
-        filename = avatar?.filename,
-        base64 = avatar?.base64
-    )
+    status = status
 )
 
 internal fun UpdateMeResultDto.toModel(): UpdateMeResult? {

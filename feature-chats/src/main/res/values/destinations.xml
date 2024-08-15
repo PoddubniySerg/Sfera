@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chats_destination" translatable="false">chats_destination</string>
+    <string name="chat_destination" translatable="false">chat_destination</string>
+</resources>
