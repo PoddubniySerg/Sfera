@@ -20,6 +20,7 @@ jetbrainsKotlinJvm = "2.0.10"
 xmaterialccp = "v2.11"
 daggerVersion = "2.51.1"
 navVersion = "2.7.7"
+lottieVersion = "6.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +51,7 @@ xmaterialccp = { module = "com.github.TuleSimon:xMaterialccp", version.ref = "xm
 dagger = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

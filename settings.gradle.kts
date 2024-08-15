@@ -23,9 +23,10 @@ dependencyResolutionManagement {
 rootProject.name = "zavod-teplits-ru"
 include(":app")
 include(":app-core")
+include(":app-config")
 include(":app-di")
+include(":app-navigation")
 include(":data-api")
 include(":data-storage")
+include(":feature-onboarding")
 include(":feature-auth")
-include(":app-navigation")
-include(":app-config")

@@ -14,6 +14,6 @@ internal fun NavGraphBuilder.chats(
     val chatsDestination = resources.getString(R.string.chats_destination)
     composable(route = chatsDestination) {
         setCurrentRoute(chatsDestination)
-        navigateApi.Auth()
+        navigateApi.ToAuth()
     }
 }

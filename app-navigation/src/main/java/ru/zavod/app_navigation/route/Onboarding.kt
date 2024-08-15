@@ -20,7 +20,7 @@ internal fun NavGraphBuilder.onboarding(
     composable(route = onboardingDestination) {
         setCurrentRoute(onboardingDestination)
         val chatsDestination = stringResource(id = R.string.chats_destination)
-        navigateApi.Onboarding(
+        navigateApi.ToOnboarding(
             params = params,
             start = { navController.navigate(chatsDestination) }
         )

@@ -4,13 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import ru.zavod.app_config.Configuration
-import ru.zavod.app_config.model.LottieAnimationParams
 import ru.zavod.app_config.model.OnboardingParams
 import ru.zavod.teplits.ui.theme.Pink40
 import ru.zavod.teplits.ui.theme.Pink80
@@ -32,7 +28,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Pink40
 )
 
-private val Animation = LottieAnimationParams(
+private val OnboardingParams = OnboardingParams(
     animationId = R.raw.start_animated_logo,
     millis = 5500
 )
@@ -44,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Configuration(
                 chatsButtonIconId = R.drawable.chats_button_icon,
-                onboardingParams = OnboardingParams(animation = Animation),
+                onboardingParams = OnboardingParams,
                 lightColorScheme = lightColorScheme(),
                 darkColorScheme = darkColorScheme(),
                 typography = Typography

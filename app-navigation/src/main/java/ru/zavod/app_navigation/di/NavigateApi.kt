@@ -5,17 +5,17 @@ import androidx.compose.runtime.Composable
 interface NavigateApi {
 
     @Composable
-    fun Onboarding(params: OnboardingParams, start: () -> Unit)
+    fun ToOnboarding(params: OnboardingParams, start: () -> Unit)
 
     @Composable
-    fun Auth()
+    fun ToAuth()
 
     @Composable
-    fun Chats()
+    fun ToChats()
 
     @Composable
-    fun Profile()
+    fun ToProfile()
 
     @Composable
-    fun Settings()
+    fun ToSettings()
 }

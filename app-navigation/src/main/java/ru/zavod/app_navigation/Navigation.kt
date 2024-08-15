@@ -154,9 +154,11 @@ private fun Config(viewModel: NavigationViewModel, setConfig: (Configuration) ->
 @Composable
 private fun Token(viewModel: NavigationViewModel, navController: NavHostController) {
     val token by viewModel.tokenStateFlow.collectAsState()
+    val currentRoute by viewModel.currentRouteStateFlow.collectAsState()
     val authRoute = stringResource(id = R.string.auth_destination)
-    LaunchedEffect(key1 = token) {
-        if (token == null) {
+    val onboardingRoute = stringResource(id = R.string.onboarding_destination)
+    LaunchedEffect(key1 = token, key2 = currentRoute) {
+        if (token == null && currentRoute != onboardingRoute) {
             navController.navigate(route = authRoute)
         }
     }

@@ -14,6 +14,6 @@ internal fun NavGraphBuilder.auth(
     val authDestination = resources.getString(R.string.auth_destination)
     composable(route = authDestination) {
         setCurrentRoute(authDestination)
-        navigateApi.Auth()
+        navigateApi.ToAuth()
     }
 }
