@@ -41,8 +41,16 @@ class TokensSharedPreferences @Inject constructor(context: Context) {
     fun saveToken(token: Token) {
         CoroutineScope(Dispatchers.IO).launch {
             val accessTokenKey = stringPreferencesKey(name = ACCESS_TOKEN_KEY)
+            val refreshTokenKey = stringPreferencesKey(name = REFRESH_TOKEN_KEY)
+            val userExistKey = booleanPreferencesKey(name = USER_EXIST_KEY)
             context.dataStore.edit { preferences ->
-                token.access?.let { preferences[accessTokenKey] = it }
+                val access = token.access
+                val refresh = token.refresh
+                if (access != null && refresh != null) {
+                    preferences[accessTokenKey] = access
+                    preferences[refreshTokenKey] = refresh
+                    preferences[userExistKey] = token.userExist
+                }
             }
         }
     }

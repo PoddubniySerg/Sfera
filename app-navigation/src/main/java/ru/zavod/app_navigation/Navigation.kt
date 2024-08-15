@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.zavod.app_core.di.AppComponentProvider
 import ru.zavod.app_core.model.Configuration
+import ru.zavod.app_core.model.Token
 import ru.zavod.app_navigation.di.NavigateApi
 import ru.zavod.app_navigation.di.NavigationComponent
 import ru.zavod.app_navigation.di.OnboardingParams
@@ -50,11 +51,13 @@ fun Navigation(
     val navController = rememberNavController()
     Config(viewModel = viewModel, setConfig = setConfig)
     Token(viewModel = viewModel, navController = navController)
+    val token by viewModel.tokenStateFlow.collectAsState()
     Params(
         navController = navController,
         viewModel = viewModel,
         chatsButtonIconId = chatsButtonIconId,
-        onboardingParams = onboardingParams
+        onboardingParams = onboardingParams,
+        token = token
     )
 }
 
@@ -63,7 +66,8 @@ private fun Params(
     navController: NavHostController,
     viewModel: NavigationViewModel,
     @DrawableRes chatsButtonIconId: Int,
-    onboardingParams: OnboardingParams
+    onboardingParams: OnboardingParams,
+    token: Token?
 ) {
     val currentRoute by viewModel.currentRouteStateFlow.collectAsState()
     Content(
@@ -72,6 +76,7 @@ private fun Params(
         navigateApi = viewModel.navigateApi,
         chatsButtonIconId = chatsButtonIconId,
         onboardingParams = onboardingParams,
+        token = token,
         setCurrentRoute = viewModel::setCurrentRoute
     )
 }
@@ -83,6 +88,7 @@ private fun Content(
     navigateApi: NavigateApi,
     @DrawableRes chatsButtonIconId: Int,
     onboardingParams: OnboardingParams,
+    token: Token?,
     setCurrentRoute: (String?) -> Unit
 ) {
     Scaffold(
@@ -116,6 +122,7 @@ private fun Content(
                 navController = navController,
                 navigateApi = navigateApi,
                 onboardingParams = onboardingParams,
+                token = token,
                 setCurrentRoute = setCurrentRoute
             )
             ShadowDivider()
@@ -154,11 +161,9 @@ private fun Config(viewModel: NavigationViewModel, setConfig: (Configuration) ->
 @Composable
 private fun Token(viewModel: NavigationViewModel, navController: NavHostController) {
     val token by viewModel.tokenStateFlow.collectAsState()
-    val currentRoute by viewModel.currentRouteStateFlow.collectAsState()
     val authRoute = stringResource(id = R.string.auth_destination)
-    val onboardingRoute = stringResource(id = R.string.onboarding_destination)
-    LaunchedEffect(key1 = token, key2 = currentRoute) {
-        if (token == null && currentRoute != onboardingRoute) {
+    LaunchedEffect(key1 = token) {
+        if (token == null) {
             navController.navigate(route = authRoute)
         }
     }

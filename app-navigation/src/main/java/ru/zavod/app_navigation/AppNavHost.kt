@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import ru.zavod.app_core.model.Token
 import ru.zavod.app_navigation.di.NavigateApi
 import ru.zavod.app_navigation.di.OnboardingParams
 import ru.zavod.app_navigation.route.auth
@@ -20,6 +21,7 @@ internal fun AppNavHost(
     navController: NavHostController,
     navigateApi: NavigateApi,
     onboardingParams: OnboardingParams,
+    token: Token?,
     setCurrentRoute: (String?) -> Unit
 ) {
     val resources = LocalContext.current.resources
@@ -34,6 +36,7 @@ internal fun AppNavHost(
             resources = resources,
             navigateApi = navigateApi,
             params = onboardingParams,
+            token = token,
             setCurrentRoute = setCurrentRoute
         )
 

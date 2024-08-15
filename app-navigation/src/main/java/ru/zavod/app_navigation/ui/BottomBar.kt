@@ -31,7 +31,9 @@ internal fun BottomBar(
     navController: NavHostController
 ) {
 
-    if (!menuViewed(currentRoute = currentRoute)) return
+    if (currentRoute == null || !menuViewed(currentRoute = currentRoute)) {
+        return
+    }
 
     val menu = getMenu()
     NavigationBar(tonalElevation = TonalElevationLvl1) {

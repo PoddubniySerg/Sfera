@@ -31,7 +31,9 @@ internal fun ChatsMenuButton(
     onClick: (String) -> Unit
 ) {
 
-    if (!menuViewed(currentRoute = currentRoute)) return
+    if (!menuViewed(currentRoute = currentRoute)) {
+        return
+    }
 
     val button = getChats(iconId = iconId)
 

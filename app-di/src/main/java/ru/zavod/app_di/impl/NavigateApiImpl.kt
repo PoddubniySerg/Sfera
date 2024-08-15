@@ -36,7 +36,11 @@ class NavigateApiImpl @Inject constructor() : NavigateApi {
 
     @Composable
     override fun ToChats() {
-        AuthNavHost()
+        Onboarding(
+            animationId = null,
+            content = null,
+            start = {}
+        )
     }
 
     @Composable

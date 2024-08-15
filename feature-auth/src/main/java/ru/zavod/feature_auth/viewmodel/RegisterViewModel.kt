@@ -30,9 +30,9 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 loadStateMutableStateFlow.value = LoadStateApp.Loading
+                registerUseCase.execute(params = paramsStateFlow.value)
                 loadStateMutableStateFlow.value = LoadStateApp.Success
-            } catch (e: Exception) {
-                loadStateMutableStateFlow.value = LoadStateApp.Failed(throwable = e)
+            } catch (e: Exception) { loadStateMutableStateFlow.value = LoadStateApp.Failed(throwable = e)
             }
         }
     }
