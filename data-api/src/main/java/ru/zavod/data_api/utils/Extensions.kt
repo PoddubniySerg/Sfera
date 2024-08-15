@@ -1,5 +1,6 @@
 package ru.zavod.data_api.utils
 
+import ru.zavod.app_core.model.Token
 import ru.zavod.data_api.dto.CheckAuthCodeDto
 import ru.zavod.data_api.dto.CheckAuthCodeResultDto
 import ru.zavod.data_api.dto.GetMeResultDto
@@ -17,17 +18,16 @@ import ru.zavod.data_api.model.RefreshTokenResult
 import ru.zavod.data_api.model.RegisterParams
 import ru.zavod.data_api.model.RegisterResult
 import ru.zavod.data_api.model.SendAuthCodeParams
-import ru.zavod.data_api.model.Token
 import ru.zavod.data_api.model.UpdateMeParams
 import ru.zavod.data_api.model.UpdateMeResult
 
 internal fun SendAuthCodeParams.toDto() = SendAuthCodeDto(phone = phone)
 
-internal fun CheckAuthCodeResultDto.toModel(): Token? {
+internal fun CheckAuthCodeResultDto.toModel(): Token {
     return Token(
-        access = access ?: return null,
-        refresh = refresh ?: return null,
-        userExist = userExist ?: return null
+        access = access,
+        refresh = refresh,
+        userExist = userExist ?: false
     )
 }
 

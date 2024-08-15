@@ -12,8 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.zavod.data_storage.di.Token
-import ru.zavod.data_storage.model.TokenData
+import ru.zavod.app_core.model.Token
 import javax.inject.Inject
 
 class TokensSharedPreferences @Inject constructor(context: Context) {
@@ -43,7 +42,7 @@ class TokensSharedPreferences @Inject constructor(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
             val accessTokenKey = stringPreferencesKey(name = ACCESS_TOKEN_KEY)
             context.dataStore.edit { preferences ->
-                preferences[accessTokenKey] = token.access
+                token.access?.let { preferences[accessTokenKey] = it }
             }
         }
     }
@@ -64,7 +63,7 @@ class TokensSharedPreferences @Inject constructor(context: Context) {
         val accessToken = getStringValue(key = ACCESS_TOKEN_KEY, preferences = preferences)
         val refreshToken = getStringValue(key = REFRESH_TOKEN_KEY, preferences = preferences)
         val userExist = getBooleanValue(key = USER_EXIST_KEY, preferences = preferences)
-        return TokenData(
+        return Token(
             access = accessToken ?: return null,
             refresh = refreshToken ?: return null,
             userExist = userExist ?: false

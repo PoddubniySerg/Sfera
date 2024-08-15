@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_destination" translatable="false">auth_destination</string>
+    <string name="register_destination" translatable="false">register_destination</string>
+
+    <string name="country_alias_key" translatable="false">country_alias</string>
+    <string name="phone_number_key" translatable="false">phone_number</string>
+</resources>

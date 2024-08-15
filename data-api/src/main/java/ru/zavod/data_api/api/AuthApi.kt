@@ -1,6 +1,8 @@
 package ru.zavod.data_api.api
 
+import android.util.Log
 import retrofit2.Response
+import ru.zavod.app_core.model.Token
 import ru.zavod.data_api.ApiProvider
 import ru.zavod.data_api.UNAUTHORIZED_CODE
 import ru.zavod.data_api.dto.ThrowableResponse
@@ -13,7 +15,6 @@ import ru.zavod.data_api.model.RefreshTokenResult
 import ru.zavod.data_api.model.RegisterParams
 import ru.zavod.data_api.model.RegisterResult
 import ru.zavod.data_api.model.SendAuthCodeParams
-import ru.zavod.data_api.model.Token
 import ru.zavod.data_api.model.UpdateMeParams
 import ru.zavod.data_api.model.UpdateMeResult
 import ru.zavod.data_api.utils.toDto
@@ -30,10 +31,10 @@ class AuthApi @Inject constructor(apiProvider: ApiProvider) {
         return response.body()?.success
     }
 
-    suspend fun checkAuthCode(params: CheckAuthCodeParams): Token? {
+    suspend fun checkAuthCode(params: CheckAuthCodeParams): Token {
         val response = apiV2.checkAuthCode(checkAuthCodeDto = params.toDto())
         checkResponse(response = response)
-        return response.body()?.toModel()
+        return response.body()!!.toModel()
     }
 
     suspend fun register(params: RegisterParams): RegisterResult? {

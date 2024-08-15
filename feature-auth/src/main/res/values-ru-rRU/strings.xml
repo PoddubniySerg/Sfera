@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unauthorized_error_message">Ошибка авторизации</string>
+    <string name="invalid_phone_error_message">Введенный номер телефоне не корректен</string>
+    <string name="unknown_error_message">Произошла ошибка, попробуйте повторить позже</string>
+
+    <string name="auth_header_title">Выберите страну и введите номер телефона</string>
+    <string name="check_auth_code_title">Введите код из СМС</string>
+    <string name="input_name_title">Имя</string>
+    <string name="input_name_placeholder">Введите имя</string>
+    <string name="input_username_title">Логин</string>
+    <string name="input_username_placeholder">Введите логин</string>
+    <string name="input_username_help_message">Допустимы латинские буквы, цифры, символы, тире и нижнее подчеркивание</string>
+    <string name="send_button_title">Отправить</string>
+    <string name="cancel_button_title">Отменить</string>
+</resources>

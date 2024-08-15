@@ -16,10 +16,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "zavod-teplits-ru"
 include(":app")
+include(":app-core")
+include(":app-di")
 include(":data-api")
 include(":data-storage")
+include(":feature-auth")

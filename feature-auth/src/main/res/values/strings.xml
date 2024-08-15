@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="unauthorized_error_message">Authorization error</string>
+    <string name="invalid_phone_error_message">The entered phone number is incorrect</string>
+    <string name="unknown_error_message">An error has occurred, please try again later</string>
+
+    <string name="auth_header_title">Select your country and enter your phone number</string>
+    <string name="check_auth_code_title">Enter the code from the SMS</string>
+    <string name="input_name_title">Name</string>
+    <string name="input_name_placeholder">Enter name</string>
+    <string name="input_username_title">Username</string>
+    <string name="input_username_placeholder">Enter username</string>
+    <string name="input_username_help_message">Latin letters, numbers, symbols, dashes and underscores are allowed</string>
+    <string name="send_button_title">Send</string>
+    <string name="cancel_button_title">Cancel</string>
+</resources>
