@@ -22,7 +22,7 @@ import ru.zavod.feature_profile.R
 @Composable
 fun UserAvatar(user: User?, size: Dp) {
     val imageRequestBuilder = ImageRequest.Builder(context = LocalContext.current)
-        .data(data = "https://plannerok.ru/api/v1/users/me/media/avatars/200x200/55dd6024a05946559e1979febac46903.jpg")
+        .data(data = user?.avatar)
         .crossfade(enable = true)
     val modifier = Modifier
         .size(size = size)
