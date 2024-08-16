@@ -64,4 +64,5 @@ dependencies {
     implementation(project(":feature-onboarding"))
     implementation(project(":feature-auth"))
     implementation(project(":feature-chats"))
+    implementation(project(":feature-profile"))
 }

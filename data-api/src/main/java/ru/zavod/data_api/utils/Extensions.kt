@@ -10,7 +10,6 @@ import ru.zavod.data_api.dto.RegisterDto
 import ru.zavod.data_api.dto.RegisterResultDto
 import ru.zavod.data_api.dto.SendAuthCodeDto
 import ru.zavod.data_api.dto.UpdateMeDto
-import ru.zavod.data_api.dto.UpdateMeResultDto
 import ru.zavod.data_api.model.CheckAuthCodeParams
 import ru.zavod.data_api.model.GetMeResult
 import ru.zavod.data_api.model.RefreshTokenParams
@@ -19,7 +18,6 @@ import ru.zavod.data_api.model.RegisterParams
 import ru.zavod.data_api.model.RegisterResult
 import ru.zavod.data_api.model.SendAuthCodeParams
 import ru.zavod.data_api.model.UpdateMeParams
-import ru.zavod.data_api.model.UpdateMeResult
 
 internal fun SendAuthCodeParams.toDto() = SendAuthCodeDto(phone = phone)
 
@@ -46,6 +44,7 @@ internal fun RegisterResultDto.toModel(): RegisterResult? {
 internal fun GetMeResultDto.toModel(): GetMeResult? {
     return GetMeResult(
         id = profile.id ?: return null,
+        username = profile.username,
         name = profile.name,
         birthday = profile.birthday,
         city = profile.city,
@@ -56,20 +55,13 @@ internal fun GetMeResultDto.toModel(): GetMeResult? {
 }
 
 internal fun UpdateMeParams.toDto() = UpdateMeDto(
+    username = username,
     name = name,
     birthday = birthday,
     city = city,
-    status = status
+    status = status,
+    avatar = avatar?.let { UpdateMeDto.Avatar(filename = it.filename, file = it.base64) }
 )
-
-internal fun UpdateMeResultDto.toModel(): UpdateMeResult? {
-    val avatars = UpdateMeResult.Avatars(
-        avatar = avatar.avatar,
-        bigAvatar = avatar.bigAvatar,
-        miniAvatar = avatar.miniAvatar
-    )
-    return UpdateMeResult(avatars = avatars)
-}
 
 internal fun RefreshTokenParams.toDto() = RefreshTokenDto(refreshToken = refresh)
 

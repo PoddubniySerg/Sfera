@@ -7,6 +7,7 @@ internal object SourceUser {
     fun getUserDetails(): User {
         return User(
             id = "id_preview",
+            username = "username",
             name = "Семен",
             avatar = null,
             birthday = "23-02-1988",

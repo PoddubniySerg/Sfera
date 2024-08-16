@@ -35,7 +35,8 @@ import ru.zavod.feature_auth.viewmodel.AuthViewModel
 @Composable
 internal fun Auth(
     viewModel: AuthViewModel = getViewModel(),
-    register: (String, String) -> Unit
+    register: (String, String) -> Unit,
+    success: () -> Unit
 ) {
     val countries by viewModel.countriesStateFlow.collectAsState()
     val openDialog by viewModel.openDialogStateFlow.collectAsState()
@@ -70,6 +71,7 @@ internal fun Auth(
                 phone = phone,
                 loadStateHandler = { checkAuthLoadState = it },
                 register = { register(selected.countryCode, phone) },
+                success = success,
                 onBack = viewModel::changePhone
             )
         } else {
@@ -112,6 +114,7 @@ private fun LazyListScope.checkAuthCode(
     phone: String,
     loadStateHandler: (LoadStateApp?) -> Unit,
     register: () -> Unit,
+    success: () -> Unit,
     onBack: () -> Unit
 ) {
     item {
@@ -119,6 +122,7 @@ private fun LazyListScope.checkAuthCode(
             phone = "$code$phone",
             loadStateHandler = loadStateHandler,
             register = register,
+            success = success,
             onBack = onBack
         )
     }

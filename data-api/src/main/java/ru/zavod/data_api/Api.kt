@@ -22,29 +22,26 @@ internal interface Api {
     @POST("$USERS_PATH/$SEND_AUTH_CODE_PATH/")
     suspend fun sendAuthCode(
         @Body sendAuthCodeDto: SendAuthCodeDto
-    ): Response<SendAuthCodeResultDto>
+    ): Response<SendAuthCodeResultDto?>
 
     @POST("$USERS_PATH/$CHECK_AUTH_CODE_PATH/")
     suspend fun checkAuthCode(
         @Body checkAuthCodeDto: CheckAuthCodeDto
-    ): Response<CheckAuthCodeResultDto>
+    ): Response<CheckAuthCodeResultDto?>
 
     @POST("$USERS_PATH/$REGISTER_PATH/")
-    suspend fun register(@Body registerDto: RegisterDto): Response<RegisterResultDto>
+    suspend fun register(@Body registerDto: RegisterDto): Response<RegisterResultDto?>
 
     @GET("$USERS_PATH/$ME_PATH/")
-    suspend fun getMe(): Response<GetMeResultDto>
+    suspend fun getMe(): Response<GetMeResultDto?>
 
     @PUT("$USERS_PATH/$ME_PATH/")
     suspend fun updateMe(
         @Body updateMeDto: UpdateMeDto
-    ): Response<UpdateMeResultDto>
+    ): Response<UpdateMeResultDto?>
 
     @POST("$USERS_PATH/$REFRESH_TOKEN_PATH/")
     suspend fun refreshToken(
         @Body refreshTokenDto: RefreshTokenDto
-    ): Response<RefreshTokenResultDto>
-
-    @GET("$USERS_PATH/$CHECK_JWT_PATH/")
-    suspend fun checkJwt(): Response<String?>
+    ): Response<RefreshTokenResultDto?>
 }

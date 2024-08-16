@@ -8,16 +8,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import ru.zavod.app_core.di.AppComponentProvider
 import ru.zavod.feature_chats.PaddingLvl1
 import ru.zavod.feature_chats.TonalElevationLvl1
+import ru.zavod.feature_chats.di.ChatsComponent
 import ru.zavod.feature_chats.model.Chat
+import ru.zavod.feature_chats.viewmodel.ChatViewModel
 import ru.zavod.feature_chats.viewmodel.ChatsViewModel
 
 @Composable
 internal fun Chats(
-    viewModel: ChatsViewModel = androidx.lifecycle.viewmodel.compose.viewModel<ChatsViewModel>(),
+    viewModel: ChatsViewModel = getViewModel(),
     onChatClick: (Chat) -> Unit
 ) {
     Surface(
@@ -38,6 +43,14 @@ internal fun Chats(
             }
         }
     }
+}
+
+@Composable
+private fun getViewModel(): ChatsViewModel {
+    val appContext = LocalContext.current.applicationContext
+    val appComponent = (appContext as AppComponentProvider).getAppComponent()
+    val viewModelFactory = (appComponent as ChatsComponent).chatsViewModelFactory()
+    return viewModel<ChatsViewModel>(factory = viewModelFactory)
 }
 
 @Preview(showBackground = true)

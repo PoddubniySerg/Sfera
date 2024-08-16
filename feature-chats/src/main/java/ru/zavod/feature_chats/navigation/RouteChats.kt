@@ -14,6 +14,6 @@ internal fun NavGraphBuilder.chats(
 ) {
     composable(route = resources.getString(R.string.chats_destination)) {
         val chatDestination = stringResource(id = R.string.chat_destination)
-        Chats(onChatClick = { navController.navigate(route = "$chatDestination/${it.title}") })
+        Chats(onChatClick = { navController.navigate(route = "$chatDestination") })
     }
 }

@@ -8,9 +8,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import ru.zavod.feature_auth.R
+import ru.zavod.feature_auth.model.Auth
 
 @Composable
-fun AuthNavHost() {
+fun AuthNavHost(params: Auth) {
     val navController = rememberNavController()
     val resources = LocalContext.current.resources
     NavHost(
@@ -18,7 +19,7 @@ fun AuthNavHost() {
         startDestination = stringResource(R.string.auth_destination),
         modifier = Modifier.fillMaxSize()
     ) {
-        auth(navController = navController, resources = resources)
+        auth(navController = navController, resources = resources, success = params.success)
         register(navController = navController, resources = resources)
     }
 }

@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -35,6 +34,7 @@ import ru.zavod.app_core.model.Token
 import ru.zavod.app_navigation.di.NavigateApi
 import ru.zavod.app_navigation.di.NavigationComponent
 import ru.zavod.app_navigation.di.OnboardingParams
+import ru.zavod.app_navigation.route.Destination
 import ru.zavod.app_navigation.ui.BottomBar
 import ru.zavod.app_navigation.ui.ChatsMenuButton
 import ru.zavod.app_navigation.ui.getTitle
@@ -69,39 +69,34 @@ private fun Params(
     onboardingParams: OnboardingParams,
     token: Token?
 ) {
-    val currentRoute by viewModel.currentRouteStateFlow.collectAsState()
     Content(
         navController = navController,
-        currentRoute = currentRoute,
         navigateApi = viewModel.navigateApi,
         chatsButtonIconId = chatsButtonIconId,
         onboardingParams = onboardingParams,
-        token = token,
-        setCurrentRoute = viewModel::setCurrentRoute
+        token = token
     )
 }
 
 @Composable
 private fun Content(
     navController: NavHostController,
-    currentRoute: String?,
     navigateApi: NavigateApi,
     @DrawableRes chatsButtonIconId: Int,
     onboardingParams: OnboardingParams,
-    token: Token?,
-    setCurrentRoute: (String?) -> Unit
+    token: Token?
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            if (menuViewed(currentRoute = currentRoute)) {
-                getTitle(currentRoute = currentRoute)?.let { TopBar(title = it) }
+            if (menuViewed(controller = navController)) {
+                getTitle(controller = navController)?.let { TopBar(title = it) }
             }
         },
-        bottomBar = { BottomBar(currentRoute = currentRoute, navController = navController) },
+        bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
             ChatsMenuButton(
-                currentRoute = currentRoute,
+                controller = navController,
                 iconId = chatsButtonIconId,
                 onClick = { route ->
                     navigateToRoute(
@@ -122,8 +117,7 @@ private fun Content(
                 navController = navController,
                 navigateApi = navigateApi,
                 onboardingParams = onboardingParams,
-                token = token,
-                setCurrentRoute = setCurrentRoute
+                token = token
             )
             ShadowDivider()
         }
@@ -161,10 +155,9 @@ private fun Config(viewModel: NavigationViewModel, setConfig: (Configuration) ->
 @Composable
 private fun Token(viewModel: NavigationViewModel, navController: NavHostController) {
     val token by viewModel.tokenStateFlow.collectAsState()
-    val authRoute = stringResource(id = R.string.auth_destination)
     LaunchedEffect(key1 = token) {
         if (token == null) {
-            navController.navigate(route = authRoute)
+            navController.navigate(route = Destination.AUTH.destination)
         }
     }
 }

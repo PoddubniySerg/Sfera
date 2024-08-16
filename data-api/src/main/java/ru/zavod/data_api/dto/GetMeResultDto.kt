@@ -11,6 +11,7 @@ internal data class GetMeResultDto(
     @JsonClass(generateAdapter = true)
     data class Profile(
         @Json(name = "id") val id: Long?,
+        @Json(name = "username") val username: String,
         @Json(name = "name") val name: String?,
         @Json(name = "birthday") val birthday: String?,
         @Json(name = "city") val city: String?,

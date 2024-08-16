@@ -25,15 +25,16 @@ class CheckAuthCodeViewModel @Inject constructor(
         codeMutableStateFlow.value = code
     }
 
-    fun sendCode(phone: String, register: () -> Unit) {
+    fun sendCode(phone: String, register: () -> Unit, success: () -> Unit) {
         viewModelScope.launch {
             try {
                 loadStateMutableStateFlow.value = LoadStateApp.Loading
                 val params = CheckAuthCodeParams(phone = phone, code = codeStateFlow.value)
                 val exist = checkAuthCodeUseCase.execute(params = params)
                 codeMutableStateFlow.value = EMPTY_STRING
-                if (!exist) {
-                    register()
+                when {
+                    exist -> success()
+                    else -> register()
                 }
                 loadStateMutableStateFlow.value = LoadStateApp.Success
             } catch (e: Exception) {

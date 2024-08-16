@@ -1,6 +1,5 @@
 package ru.zavod.data_api.api
 
-import android.util.Log
 import retrofit2.Response
 import ru.zavod.app_core.model.Token
 import ru.zavod.data_api.ApiProvider
@@ -15,67 +14,36 @@ import ru.zavod.data_api.model.RefreshTokenResult
 import ru.zavod.data_api.model.RegisterParams
 import ru.zavod.data_api.model.RegisterResult
 import ru.zavod.data_api.model.SendAuthCodeParams
-import ru.zavod.data_api.model.UpdateMeParams
-import ru.zavod.data_api.model.UpdateMeResult
+import ru.zavod.data_api.utils.checkResponse
 import ru.zavod.data_api.utils.toDto
 import ru.zavod.data_api.utils.toModel
 import javax.inject.Inject
 
 class AuthApi @Inject constructor(apiProvider: ApiProvider) {
 
-    private val apiV2 = apiProvider.api
+    private val api = apiProvider.api
 
     suspend fun sendAuthCode(params: SendAuthCodeParams): Boolean? {
-        val response = apiV2.sendAuthCode(sendAuthCodeDto = params.toDto())
+        val response = api.sendAuthCode(sendAuthCodeDto = params.toDto())
         checkResponse(response = response)
         return response.body()?.success
     }
 
     suspend fun checkAuthCode(params: CheckAuthCodeParams): Token {
-        val response = apiV2.checkAuthCode(checkAuthCodeDto = params.toDto())
+        val response = api.checkAuthCode(checkAuthCodeDto = params.toDto())
         checkResponse(response = response)
         return response.body()!!.toModel()
     }
 
     suspend fun register(params: RegisterParams): RegisterResult? {
-        val response = apiV2.register(registerDto = params.toDto())
+        val response = api.register(registerDto = params.toDto())
         checkResponse(response = response)
         return response.body()?.toModel()
     }
 
     suspend fun getMe(): GetMeResult? {
-        val response = apiV2.getMe()
+        val response = api.getMe()
         checkResponse(response = response)
         return response.body()?.toModel()
-    }
-
-    suspend fun updateMe(params: UpdateMeParams): UpdateMeResult? {
-        val response = apiV2.updateMe(updateMeDto = params.toDto())
-        checkResponse(response = response)
-        return response.body()?.toModel()
-    }
-
-    suspend fun refreshToken(params: RefreshTokenParams): RefreshTokenResult? {
-        val response = apiV2.refreshToken(refreshTokenDto = params.toDto())
-        checkResponse(response = response)
-        return response.body()?.toModel()
-    }
-
-    suspend fun cjeckJwt(): String? {
-        val response = apiV2.checkJwt()
-        when {
-            response.code() == UNAUTHORIZED_CODE -> throw UnauthorizedException()
-            !response.isSuccessful -> throw BadResponseException(message = response.body())
-        }
-        return response.body()
-    }
-
-    private fun <T : ThrowableResponse> checkResponse(response: Response<T>) {
-        when {
-            response.code() == UNAUTHORIZED_CODE -> throw UnauthorizedException()
-            !response.isSuccessful -> throw BadResponseException(
-                message = response.body()?.errors?.firstOrNull()?.msg
-            )
-        }
     }
 }

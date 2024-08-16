@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onboarding_destination" translatable="false">onboarding_destination</string>
-    <string name="auth_destination" translatable="false">auth_destination</string>
-    <string name="chats_destination" translatable="false">chats_destination</string>
-    <string name="profile_destination" translatable="false">profile_destination</string>
-    <string name="settings_destination" translatable="false">settings_destination</string>
-</resources>

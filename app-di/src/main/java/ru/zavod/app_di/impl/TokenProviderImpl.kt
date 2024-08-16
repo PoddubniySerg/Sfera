@@ -18,4 +18,8 @@ class TokenProviderImpl @Inject constructor(
     override fun removeToken() {
         storage.removeToken()
     }
+
+    override fun saveToken(token: Token) {
+        storage.saveToken(token = token)
+    }
 }

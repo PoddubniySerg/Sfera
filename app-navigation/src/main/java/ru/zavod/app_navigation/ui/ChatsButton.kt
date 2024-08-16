@@ -13,11 +13,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.zavod.app_navigation.OffsetYChatsButton
 import ru.zavod.app_navigation.PaddingLvl1
 import ru.zavod.app_navigation.PaddingLvl2
@@ -26,12 +29,12 @@ import ru.zavod.app_navigation.VerticalOffsetChatsButton
 
 @Composable
 internal fun ChatsMenuButton(
-    currentRoute: String?,
+    controller: NavHostController,
     @DrawableRes iconId: Int,
     onClick: (String) -> Unit
 ) {
 
-    if (!menuViewed(currentRoute = currentRoute)) {
+    if (!menuViewed(controller = controller)) {
         return
     }
 
@@ -51,13 +54,17 @@ internal fun ChatsMenuButton(
                 shape = CircleShape
             )
     ) {
-        val route = stringResource(id = button.route)
-        val tint = when (currentRoute) {
-            route -> Color.Unspecified
+
+        val navBackStackEntry by controller.currentBackStackEntryAsState()
+        val isSelected = navBackStackEntry?.destination
+            ?.hierarchy
+            ?.any { it.route == button.destination.destination } == true
+        val tint = when {
+            isSelected -> Color.Unspecified
             else -> MaterialTheme.colorScheme.outlineVariant
         }
         IconButton(
-            onClick = { onClick(route) },
+            onClick = { onClick(button.destination.destination) },
             modifier = Modifier
                 .fillMaxSize()
                 .padding(all = PaddingLvl1)

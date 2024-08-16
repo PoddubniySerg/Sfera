@@ -10,7 +10,8 @@ import ru.zavod.feature_auth.ui.auth.Auth
 
 internal fun NavGraphBuilder.auth(
     navController: NavHostController,
-    resources: Resources
+    resources: Resources,
+    success: () -> Unit
 ) {
     composable(route = resources.getString(R.string.auth_destination)) {
         val registerDestination = stringResource(id = R.string.register_destination)
@@ -18,7 +19,8 @@ internal fun NavGraphBuilder.auth(
             register = { countryAlias, phoneNumber ->
                 val registereRoute = "$registerDestination/$countryAlias/$phoneNumber"
                 navController.navigate(route = registereRoute)
-            }
+            },
+            success = success
         )
     }
 }

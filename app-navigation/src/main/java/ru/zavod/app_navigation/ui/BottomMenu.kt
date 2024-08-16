@@ -3,11 +3,16 @@ package ru.zavod.app_navigation.ui
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.zavod.app_navigation.R
+import ru.zavod.app_navigation.route.Destination
 
 internal data class BottomMenu(
-    @StringRes val route: Int,
+    val destination: Destination,
     @DrawableRes val iconId: Int,
     @StringRes val headerId: Int
 )
@@ -17,14 +22,14 @@ internal fun getMenu(): List<BottomMenu> {
     return buildList {
         add(
             BottomMenu(
-                route = R.string.profile_destination,
+                destination = Destination.PROFILE,
                 iconId = R.drawable.profile_icon,
                 headerId = R.string.bottom_menu_profile_header
             )
         )
         add(
             BottomMenu(
-                route = R.string.settings_destination,
+                destination = Destination.SETTINGS,
                 iconId = R.drawable.settings_icon,
                 headerId = R.string.bottom_menu_settings_header
             )
@@ -33,27 +38,29 @@ internal fun getMenu(): List<BottomMenu> {
 }
 
 internal fun getChats(@DrawableRes iconId: Int): BottomMenu = BottomMenu(
-    route = R.string.chats_destination,
+    destination = Destination.CHATS,
     iconId = iconId,
     headerId = R.string.bottom_menu_chats_header
 )
 
 @Composable
-internal fun menuViewed(currentRoute: String?): Boolean {
-    return currentRoute != null
-            && currentRoute != stringResource(id = R.string.onboarding_destination)
-            && currentRoute != stringResource(id = R.string.auth_destination)
+internal fun menuViewed(controller: NavHostController): Boolean {
+    val navBackStackEntry by controller.currentBackStackEntryAsState()
+    val destination = navBackStackEntry?.destination?.hierarchy
+    return destination != null
+            && !destination.any { it.route == Destination.ONBOARDING.destination } == true
+            && !destination.any { it.route == Destination.AUTH.destination } == true
 }
 
 @Composable
-internal fun getTitle(currentRoute: String?): String? {
-    val chatsRoute = stringResource(id = R.string.chats_destination)
-    if (currentRoute == chatsRoute) {
+internal fun getTitle(controller: NavHostController): String? {
+    val navBackStackEntry by controller.currentBackStackEntryAsState()
+    val destination = navBackStackEntry?.destination?.hierarchy
+    if (destination?.any { it.route == Destination.CHATS.destination } == true) {
         return stringResource(id = R.string.bottom_menu_chats_header)
     }
     getMenu().forEach { menuItem ->
-        val route = stringResource(id = menuItem.route)
-        if (route == currentRoute) {
+        if (destination?.any { it.route == menuItem.destination.destination } == true) {
             return stringResource(id = menuItem.headerId)
         }
     }

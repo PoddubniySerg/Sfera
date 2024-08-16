@@ -5,4 +5,5 @@ import ru.zavod.app_core.model.Token
 interface TokenProviderApi {
     fun getToken(): Token?
     fun removeToken()
+    fun saveToken(token: Token)
 }

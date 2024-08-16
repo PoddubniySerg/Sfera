@@ -7,6 +7,7 @@ import ru.zavod.data_storage.entity.UserRoleEntity
 
 internal fun User.toEntity() = UserEntity(
     id = id,
+    username = username,
     name = name,
     birthday = birthday,
     city = city,
@@ -19,6 +20,7 @@ internal fun UserRole.toEntity(userId: String) = UserRoleEntity(userId = userId,
 
 internal fun UserEntity.toUser() = User(
     id = id,
+    username = username,
     name = name,
     birthday = birthday,
     city = city,

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_select_edit_mode_button_title">Изменить профиль</string>
+    <string name="profile_update_button_title">Сохранить настройки</string>
+
+    <string name="profile_phone_title">Телефон</string>
+    <string name="profile_name_title">Никнейм</string>
+    <string name="profile_city_title">Город проживания</string>
+    <string name="profile_birthday_title">Дата рождения</string>
+    <string name="profile_zodiac_title">Знак зодиака</string>
+    <string name="profile_about_me_title">О себе</string>
+
+    <string name="zodiac_aries_title">Овен</string>
+    <string name="zodiac_taurus_title">Телец</string>
+    <string name="zodiac_gemini_title">Близнецы</string>
+    <string name="zodiac_cancer_title">Рак</string>
+    <string name="zodiac_leo_title">Лев</string>
+    <string name="zodiac_virgo_title">Дева</string>
+    <string name="zodiac_libra_title">Весы</string>
+    <string name="zodiac_scorpio_title">Скорпион</string>
+    <string name="zodiac_sagittarius_title">Стрелец</string>
+    <string name="zodiac_capricorn_title">Козерог</string>
+    <string name="zodiac_aquarius_title">Водолей</string>
+    <string name="zodiac_pisces_title">Рыбы</string>
+</resources>

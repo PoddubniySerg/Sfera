@@ -13,10 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,18 +25,15 @@ import ru.zavod.app_navigation.navigateToRoute
 
 @Composable
 internal fun BottomBar(
-    currentRoute: String?,
     navController: NavHostController
 ) {
 
-    if (currentRoute == null || !menuViewed(currentRoute = currentRoute)) {
+    if (!menuViewed(controller = navController)) {
         return
     }
 
     val menu = getMenu()
     NavigationBar(tonalElevation = TonalElevationLvl1) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
         val divideIndex = menu.size / 2
         menu.forEachIndexed { index, item ->
             if (index > divideIndex) {
@@ -46,7 +41,6 @@ internal fun BottomBar(
             }
             MenuItem(
                 item = item,
-                currentDestination = currentDestination,
                 navController = navController
             )
         }
@@ -56,11 +50,12 @@ internal fun BottomBar(
 @Composable
 private fun RowScope.MenuItem(
     item: BottomMenu,
-    currentDestination: NavDestination?,
     navController: NavHostController
 ) {
-    val itemRoute = stringResource(id = item.route)
-    val isSelected = currentDestination?.hierarchy?.any { it.route == itemRoute } == true
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val isSelected = navBackStackEntry?.destination
+        ?.hierarchy
+        ?.any { it.route == item.destination.destination } == true
 
     val selectedColor = MaterialTheme.colorScheme.primary
     val unselectedColor = MaterialTheme.colorScheme.outlineVariant
@@ -74,7 +69,7 @@ private fun RowScope.MenuItem(
         },
         selected = isSelected,
         onClick = {
-            navigateToRoute(navController = navController, itemRoute = itemRoute)
+            navigateToRoute(navController = navController, itemRoute = item.destination.destination)
         },
         colors = NavigationBarItemDefaults.colors(
             indicatorColor = Color.Transparent,
@@ -91,5 +86,5 @@ private fun RowScope.MenuItem(
 @Preview
 @Composable
 private fun BottomMenuPreview() {
-    BottomBar(currentRoute = "", navController = rememberNavController())
+    BottomBar(navController = rememberNavController())
 }

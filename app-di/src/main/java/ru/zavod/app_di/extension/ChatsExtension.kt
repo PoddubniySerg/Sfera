@@ -7,6 +7,7 @@ internal fun ru.zavod.feature_chats.model.GetUserParams.toDataApi() = GetUserPar
 
 internal fun ru.zavod.data_api.model.GetMeResult.toChatsModel() = User(
     id = id.toString(),
+    username = username,
     name = name,
     birthday = birthday,
     city = city,

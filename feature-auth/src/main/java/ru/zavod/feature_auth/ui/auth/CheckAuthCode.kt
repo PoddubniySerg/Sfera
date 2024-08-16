@@ -35,6 +35,7 @@ internal fun CheckAuthCode(
     phone: String,
     loadStateHandler: (LoadStateApp?) -> Unit,
     register: () -> Unit,
+    success: () -> Unit,
     onBack: () -> Unit
 ) {
     BackHandler(onBack = onBack)
@@ -55,7 +56,7 @@ internal fun CheckAuthCode(
         )
         AuthError(loadState = loadState)
         Buttons(
-            confirm = { viewModel.sendCode(phone = phone, register = register) },
+            confirm = { viewModel.sendCode(phone = phone, register = register, success = success) },
             onBack = onBack
         )
     }

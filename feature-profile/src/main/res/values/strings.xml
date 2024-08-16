@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_select_edit_mode_button_title">Change Profile</string>
+    <string name="profile_update_button_title">Save Settings</string>
+
+    <string name="profile_phone_title">Phone</string>
+    <string name="profile_name_title">Name</string>
+    <string name="profile_city_title">City</string>
+    <string name="profile_birthday_title">Birthday</string>
+    <string name="profile_zodiac_title">Zodiac</string>
+    <string name="profile_about_me_title">About me</string>
+
+    <string name="zodiac_aries_title">Aries</string>
+    <string name="zodiac_taurus_title">Taurus</string>
+    <string name="zodiac_gemini_title">Gemini</string>
+    <string name="zodiac_cancer_title">Cancer</string>
+    <string name="zodiac_leo_title">Leo</string>
+    <string name="zodiac_virgo_title">Virgo</string>
+    <string name="zodiac_libra_title">Libra</string>
+    <string name="zodiac_scorpio_title">Scorpio</string>
+    <string name="zodiac_sagittarius_title">Sagittarius</string>
+    <string name="zodiac_capricorn_title">Capricorn</string>
+    <string name="zodiac_aquarius_title">Aquarius</string>
+    <string name="zodiac_pisces_title">Pisces</string>
+</resources>
