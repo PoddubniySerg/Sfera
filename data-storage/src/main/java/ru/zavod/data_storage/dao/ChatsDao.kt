@@ -34,4 +34,16 @@ interface ChatsDao {
 
     @Query("SELECT * FROM users WHERE id = :userId")
     suspend fun getUserById(userId: String): UserEntity?
+
+    @Transaction
+    suspend fun clear() {
+        clearUsers()
+        clearRoles()
+    }
+
+    @Query("DELETE FROM users")
+    suspend fun clearUsers()
+
+    @Query("DELETE FROM users_roles")
+    suspend fun clearRoles()
 }

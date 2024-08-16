@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="configuration_theme_selector_title">Choosing a theme</string>
+    <string name="configuration_confirm_button_title">Save Settings</string>
+    <string name="ok_button_title">OK</string>
+    <string name="cancel_button_title" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="sections_logout_button_title">Logout</string>
+</resources>

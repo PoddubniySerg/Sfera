@@ -9,10 +9,12 @@ import ru.zavod.app_di.module.ChatsModule
 import ru.zavod.app_di.module.DataApiModule
 import ru.zavod.app_di.module.NavigationModule
 import ru.zavod.app_di.module.ProfileModule
+import ru.zavod.app_di.module.SettingsModule
 import ru.zavod.app_navigation.di.NavigationComponent
 import ru.zavod.feature_auth.di.AuthComponent
 import ru.zavod.feature_chats.di.ChatsComponent
 import ru.zavod.feature_profile.di.ProfileComponent
+import ru.zavod.feature_settings.di.SettingsComponent
 import javax.inject.Scope
 
 @Component(
@@ -21,7 +23,8 @@ import javax.inject.Scope
         DataApiModule::class,
         NavigationModule::class,
         ChatsModule::class,
-        ProfileModule::class
+        ProfileModule::class,
+        SettingsModule::class
     ]
 )
 @AppScope
@@ -30,7 +33,8 @@ interface DiComponent :
     AuthComponent,
     NavigationComponent,
     ChatsComponent,
-    ProfileComponent {
+    ProfileComponent,
+    SettingsComponent {
     @Component.Factory
     interface AuthComponentFactory {
         fun create(@BindsInstance context: Context): DiComponent

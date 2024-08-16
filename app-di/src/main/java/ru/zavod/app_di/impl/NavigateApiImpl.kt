@@ -1,14 +1,15 @@
 package ru.zavod.app_di.impl
 
 import androidx.compose.runtime.Composable
-import ru.zavod.app_navigation.model.AuthParams
 import ru.zavod.app_navigation.di.NavigateApi
 import ru.zavod.app_navigation.di.OnboardingParams
+import ru.zavod.app_navigation.model.AuthParams
 import ru.zavod.feature_auth.model.Auth
 import ru.zavod.feature_auth.navigation.AuthNavHost
 import ru.zavod.feature_chats.navigation.ChatsNavHost
 import ru.zavod.feature_onboarding.ui.Onboarding
 import ru.zavod.feature_profile.ui.Profile
+import ru.zavod.feature_settings.ui.Configuration
 import javax.inject.Inject
 
 class NavigateApiImpl @Inject constructor() : NavigateApi {
@@ -50,10 +51,6 @@ class NavigateApiImpl @Inject constructor() : NavigateApi {
 
     @Composable
     override fun ToSettings() {
-        Onboarding(
-            animationId = null,
-            content = null,
-            start = {}
-        )
+        Configuration()
     }
 }
