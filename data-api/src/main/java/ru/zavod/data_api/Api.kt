@@ -19,6 +19,11 @@ import ru.zavod.data_api.dto.UpdateMeResultDto
 
 internal interface Api {
 
+    companion object {
+        const val BASE_URL = "https://plannerok.ru/"
+        const val BASE_URL_V1= "${BASE_URL}api/v1/"
+    }
+
     @POST("$USERS_PATH/$SEND_AUTH_CODE_PATH/")
     suspend fun sendAuthCode(
         @Body sendAuthCodeDto: SendAuthCodeDto

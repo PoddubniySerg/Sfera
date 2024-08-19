@@ -38,6 +38,9 @@ class ProfileViewModel @Inject constructor(
     private val buttonEnabledMutableStateFlow = MutableStateFlow(value = true)
     val buttonEnabledStateFlow = buttonEnabledMutableStateFlow.asStateFlow()
 
+    private val selectedUriMutableStateFlow = MutableStateFlow<Uri?>(value = null)
+    val selectedUriStateFlow = selectedUriMutableStateFlow.asStateFlow()
+
     private val avatarMutableStateFlow = MutableStateFlow<UpdateUserParams.Avatar?>(value = null)
 
     init {
@@ -58,6 +61,7 @@ class ProfileViewModel @Inject constructor(
         viewModeMutableStateFlow.value = mode
         if (mode == ViewMode.VIEW) {
             refreshUser(user = paramsStateFlow.value)
+            selectedUriMutableStateFlow.value = null
         }
         setButtonEnabled()
     }
@@ -72,6 +76,7 @@ class ProfileViewModel @Inject constructor(
         if (uri == null) {
             return
         }
+        selectedUriMutableStateFlow.value = uri
         val filename = getFileName(context = context, uri = uri) ?: return
         context.contentResolver?.openInputStream(uri)?.use {
             val bytes = it.readBytes()

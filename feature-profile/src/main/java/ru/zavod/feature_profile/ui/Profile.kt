@@ -55,11 +55,13 @@ fun Profile(viewModel: ProfileViewModel = getViewModel()) {
     val viewMode by viewModel.viewModeStateFlow.collectAsState()
     val buttonEnabled by viewModel.buttonEnabledStateFlow.collectAsState()
     val loadState by viewModel.loadStateStateFlow.collectAsState()
+    val uri by viewModel.selectedUriStateFlow.collectAsState()
     val context = LocalContext.current.applicationContext
     Content(
         user = user,
         viewMode = viewMode,
         isError = loadState is LoadStateApp.Failed,
+        uri = uri,
         save = viewModel::setUser,
         selectUri = { viewModel.selectAvatar(uri = it, context = context) },
         confirmButton = {
@@ -92,6 +94,7 @@ private fun Content(
     user: User?,
     viewMode: ViewMode,
     isError: Boolean,
+    uri: Uri?,
     save: (User?) -> Unit,
     selectUri: (Uri?) -> Unit,
     confirmButton: @Composable () -> Unit
@@ -117,7 +120,12 @@ private fun Content(
                     .verticalScroll(state = rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(space = SpaceVerticalLvl1)
             ) {
-                Avatar(user = user, enabled = viewMode == ViewMode.EDIT, selectUri = selectUri)
+                Avatar(
+                    user = user,
+                    enabled = viewMode == ViewMode.EDIT,
+                    uri = uri,
+                    selectUri = selectUri
+                )
                 Phone(mode = viewMode, user = user, isError = isError)
                 Name(mode = viewMode, user = user, isError = isError)
                 City(mode = viewMode, user = user, isError = isError, save = save)
@@ -225,10 +233,10 @@ private fun Status(mode: ViewMode, user: User?, isError: Boolean, save: (User?) 
 private const val IMAGE_PREFIX = "image/*"
 
 @Composable
-private fun Avatar(user: User?, enabled: Boolean, selectUri: (Uri?) -> Unit) {
+private fun Avatar(user: User?, enabled: Boolean, uri: Uri?, selectUri: (Uri?) -> Unit) {
     val imageLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
-        onResult = { uri -> uri?.let { selectUri(it) } }
+        onResult = { selected -> selected?.let { selectUri(it) } }
     )
     TextButton(
         onClick = { imageLauncher.launch(IMAGE_PREFIX) },
@@ -236,7 +244,7 @@ private fun Avatar(user: User?, enabled: Boolean, selectUri: (Uri?) -> Unit) {
         shape = CircleShape,
         enabled = enabled
     ) {
-        UserAvatar(user = user, size = AvatarSizeLvl1)
+        UserAvatar(user = user, size = AvatarSizeLvl1, uri = uri)
     }
 }
 
@@ -265,6 +273,7 @@ private fun ProfileViewModePreview() {
             user = User,
             viewMode = mode,
             isError = false,
+            uri = null,
             save = {},
             selectUri = {},
             confirmButton = {
@@ -287,6 +296,7 @@ private fun ProfileEditModePreview() {
         user = User,
         viewMode = mode,
         isError = true,
+        uri = null,
         save = {},
         selectUri = {},
         confirmButton = {

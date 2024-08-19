@@ -10,10 +10,6 @@ class ApiProvider @Inject constructor(
     tokenProvider: TokenProviderApi
 ) {
 
-    companion object {
-        private const val BASE_URL = "https://plannerok.ru/api/v1/"
-    }
-
     private val okHttpClient = okHttpClientProvider.getOkHttpClient(
         apiProvider = this,
         tokenProvider = tokenProvider
@@ -23,7 +19,7 @@ class ApiProvider @Inject constructor(
 
     init {
         api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Api.BASE_URL_V1)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
