@@ -16,7 +16,12 @@ internal data class GetMeResultDto(
         @Json(name = "birthday") val birthday: String?,
         @Json(name = "city") val city: String?,
         @Json(name = "status") val status: String?,
-        @Json(name = "avatar") val avatar: String?,
+        @Json(name = "avatars") val avatars: Avatars?,
         @Json(name = "phone") val phone: String?
+    )
+
+    @JsonClass(generateAdapter = true)
+    data class Avatars(
+        @Json(name = "miniAvatar") val miniAvatar: String?
     )
 }

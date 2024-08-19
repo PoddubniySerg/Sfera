@@ -1,6 +1,7 @@
 package ru.zavod.data_api.utils
 
 import ru.zavod.app_core.model.Token
+import ru.zavod.data_api.Api
 import ru.zavod.data_api.dto.CheckAuthCodeDto
 import ru.zavod.data_api.dto.CheckAuthCodeResultDto
 import ru.zavod.data_api.dto.GetMeResultDto
@@ -49,7 +50,7 @@ internal fun GetMeResultDto.toModel(): GetMeResult? {
         birthday = profile.birthday,
         city = profile.city,
         status = profile.status,
-        avatar = profile.avatar,
+        avatar = "${Api.BASE_URL}${profile.avatars?.miniAvatar}",
         phone = profile.phone
     )
 }
