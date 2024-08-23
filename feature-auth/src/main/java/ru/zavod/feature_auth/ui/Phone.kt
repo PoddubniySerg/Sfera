@@ -91,7 +91,7 @@ private fun Phone(phone: String, enabled: Boolean, onValueChange: (String) -> Un
         enabled = enabled,
         visualTransformation = maskTransformation,
         onValueChange = onValueChange,
-        placeHolder = { Text(text = maskTransformation.mask) }
+        placeHolder = { Text(text = maskTransformation.mask, maxLines = 1) }
     )
 }
 
