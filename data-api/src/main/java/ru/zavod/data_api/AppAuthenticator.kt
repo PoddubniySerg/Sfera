@@ -2,7 +2,6 @@ package ru.zavod.data_api
 
 import android.util.Log
 import io.tasknet.data_api_tasknet_io.di.TokenProviderApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -18,48 +17,33 @@ class AppAuthenticator @Inject constructor(
 ) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        return when {
-            refreshable(response = response) -> refresh(response = response)
-            response.code() == UNAUTHORIZED_CODE -> removeToken()
-            else -> buildRequest(response = response)
+        return try {
+            val refreshToken = tokenProvider.getToken()?.refresh!!
+            val token = refresh(refreshToken = refreshToken)
+            buildRequest(response = response, token = token)
+        } catch (e: Exception) {
+            Log.e("AppAuthenticator", e.stackTrace.toString())
+            tokenProvider.removeToken()
+            null
         }
     }
 
-    private fun refreshable(response: Response): Boolean {
-        return response.code() == UNAUTHORIZED_CODE
-                && response.request().header(JWT_TOKEN_HEADER) != null
-    }
-
-    private fun refresh(response: Response): Request? {
-        val refreshToken = tokenProvider.getToken()?.refresh ?: return null
-        refreshToken(refreshToken = refreshToken)
-        return buildRequest(response = response)
-    }
-
-    private fun removeToken(): Request? {
-        tokenProvider.removeToken()
-        return null
-    }
-
-    private fun refreshToken(refreshToken: String) {
-        runBlocking(Dispatchers.IO) {
-            try {
-                val params = RefreshTokenDto(refreshToken = refreshToken)
-                val response = apiProvider.api.refreshToken(refreshTokenDto = params)
-                val token = Token(
-                    access = response.body()?.access,
-                    refresh = response.body()?.refresh,
-                    userExist = response.body()?.userId != null
-                )
-                tokenProvider.saveToken(token = token)
-            } catch (e: Exception) {
-                Log.e("LogError", e.toString())
-            }
+    private fun refresh(refreshToken: String): Token {
+        var token: Token?
+        val params = RefreshTokenDto(refreshToken = refreshToken)
+        runBlocking {
+            val response = apiProvider.api.refreshToken(refreshTokenDto = params)
+            token = Token(
+                access = response.body()?.access,
+                refresh = response.body()?.refresh,
+                userExist = response.body()?.userId != null
+            )
         }
+        tokenProvider.saveToken(token = token!!)
+        return token!!
     }
 
-    private fun buildRequest(response: Response): Request {
-        val token = tokenProvider.getToken() ?: return response.request().newBuilder().build()
+    private fun buildRequest(response: Response, token: Token): Request {
         return response
             .request()
             .newBuilder()
